@@ -1,0 +1,26 @@
+<div *ngIf="!!currentItem">
+  <div class="current-item">
+    <h3>{{currentItem.name}}</h3>
+    <h4>${{currentItem.currentBid || currentItem.startingBid}}</h4>
+    <h4 *ngIf="!!currentBidder">{{currentBidder.name}}</h4>
+
+    <!-- <button *ngIf="currentItemIndex > 0" (click)="previousItem()">Back</button> -->
+    <button *ngIf="round === 1" (click)="increment()">Going once!</button>
+    <button *ngIf="round === 2" (click)="increment()">Going twice!</button>
+    <button *ngIf="round === 3" (click)="increment()">Sold to {{currentBidder.name}}!</button>
+  </div>
+
+  <div *ngIf="currentItemIndex < auction.items.length - 1" class="next-item">
+  <h4>Next up:</h4>
+    <h3>{{auction.items[currentItemIndex+1].name}}</h3>
+  </div>
+
+  <div class="bidders">
+    <div *ngFor="let bidder of auction.bidders">
+      {{bidder.name}}
+      <button (click)="bid(1, bidder.id)">${{currentItem.currentBid + 1}}</button>
+      <button (click)="bid(5, bidder.id)">${{currentItem.currentBid + 5}}</button>
+      <button (click)="bid(10, bidder.id)">${{currentItem.currentBid + 10}}</button>
+    </div>
+  </div>
+</div>

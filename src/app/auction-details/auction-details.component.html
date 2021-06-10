@@ -1,0 +1,22 @@
+<div class="container" *ngIf="!!auction">
+  <h3>{{auction.name}}</h3>
+  <p>{{auction.id}}</p>
+  <h4>Items:</h4>
+  <div *ngFor="let item of auction.items">
+    {{item.name}} {{item.startingBid}}
+  </div>
+  <button (click)="toggleAddItemDialog()">add item</button>
+
+  <h4>Bidders:</h4>
+  <div *ngFor="let bidder of auction.bidders">
+    {{bidder.name}}
+  </div>
+  <button (click)="toggleAddBidderDialog()">add bidder</button>
+
+  <app-add-item-dialog *ngIf="showAddItemDialog" [auction]="auction" (itemAdded)="itemAdded($event)"></app-add-item-dialog>
+
+  <app-add-bidder-dialog *ngIf="showAddBidderDialog" [auction]="auction" (bidderAdded)="bidderAdded($event)"></app-add-bidder-dialog>
+
+  <button *ngIf="!auction.open" (click)="open(auction.id)">Open Auction</button>
+  <button *ngIf="auction.open" (click)="start(auction.id)">Start Auction</button>
+</div>

@@ -1,0 +1,16 @@
+<h1>Bidders</h1>
+
+<div *ngFor="let bidder of bidders">
+  <h3>{{bidder.name}}</h3>
+</div>
+
+<button (click)="openSubmitForm()">Add</button>
+
+<div *ngIf="showSubmitForm" class="submit-form">
+  <label for="name">Name</label>
+  <input type="text" [(ngModel)]="newBidder.name" name="name">
+
+  <button type="submit" (click)="submitNewBidder()">Save</button>
+</div>
+
+<pre>{{newBidder | json }}</pre>

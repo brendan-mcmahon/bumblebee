@@ -1,0 +1,46 @@
+
+@use 'sass:color';
+@import "./colors.scss";
+
+@font-face {
+  font-family: header;
+  src: url("./assets/fonts/Happy\ Lucky\ Free.ttf");
+}
+
+@font-face {
+  font-family: body;
+  src: url("./assets/fonts/VanioTrial-Regular.ttf");
+}
+
+/* You can add global styles to this file, and also import other style files */
+body {
+  // background: repeating-linear-gradient(
+  //   to right,
+  //   $safety-yellow-light,
+  //   $safety-yellow-light 200px,
+  //   $gray 200px,
+  //   $gray 400px
+  // );
+  font-family: body;
+  background-color: $safety-yellow-light;
+  margin: 0;
+}
+
+h1, h2, h3, h4, a, button  {
+  font-family: header;
+}
+
+button {
+  font-size: 2rem;
+  border: none;
+  outline: none;
+  padding: 16px;
+  border-radius: 5rem;
+  margin: 16px;
+  @include theme($vivid-sky-blue);
+}
+
+.blue {
+  background-color: $vivid-sky-blue
+}
+

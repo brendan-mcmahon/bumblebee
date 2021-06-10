@@ -1,0 +1,16 @@
+<div *ngIf="!!auctionData">
+  <div *ngFor="let auction of auctionData">
+    <button (click)="getDetails(auction.id)">{{auction.name}}</button>
+  </div>
+
+  <app-auction-details [auction]="selectedAuction"></app-auction-details>
+
+</div>
+
+<button (click)="toggleNewAuctionForm()">Create New Auction</button>
+
+<div *ngIf="showNewAuctionForm">
+  <label for="name">Name</label>
+  <input type="text" [(ngModel)]="newAuction.name" name="name">
+  <button type="submit" (click)="submitNewAuction()">Create</button>
+</div>

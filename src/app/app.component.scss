@@ -1,0 +1,15 @@
+@import "../colors.scss";
+
+.links {
+  display: flex;
+  justify-content: flex-start;
+  background-color: $safety-yellow;
+  padding: 16px;
+  font-size: 3rem;
+  width: 100%;
+  a {
+    color: $black;
+    text-decoration: none;
+    margin-left: 32px;
+  }
+}
