@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ApiService } from '../api.service';
 import { SocketService } from '../socket.service';
-import { Auction } from 'c:/Users/Brendan.McMahon/code/bumblebee/src/app/models/auction';
+import { Auction } from '../models/auction';
 
 @Component({
   selector: 'app-auctioneer',
