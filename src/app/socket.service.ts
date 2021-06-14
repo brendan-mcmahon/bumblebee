@@ -9,7 +9,7 @@ import { Auction, Bid, Bidder, Item } from './models/auction';
 })
 export class SocketService {
 
-  SOCKET_ENDPOINT = environment.SOCKET_ENDPOINT;
+  API_ENDPOINT = environment.API_ENDPOINT;
   private socket: any;
   message: string;
   auctionData$ = new BehaviorSubject<Auction[]>(null);
@@ -18,7 +18,7 @@ selectedAuction$ = new BehaviorSubject<Auction>(null);
   itemSold$ = new BehaviorSubject<Item>(null);
 
   constructor() {
-    this.socket = io(this.SOCKET_ENDPOINT);
+    this.socket = io(this.API_ENDPOINT);
 
     this.socket.on('auction-data', (auctionData: Auction[]) => {
       this.auctionData$.next(auctionData);

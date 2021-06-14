@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  SOCKET_ENDPOINT: 'https://table-top-timer.herokuapp.com'
+  API_ENDPOINT: 'https://bumblebaby-api.herokuapp.com/'
 };
