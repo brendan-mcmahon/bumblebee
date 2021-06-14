@@ -1,16 +1,24 @@
-<div *ngIf="!!auctionData">
-  <div *ngFor="let auction of auctionData">
-    <button (click)="getDetails(auction.id)">{{auction.name}}</button>
+<div class="container">
+  <h2 *ngIf="!!auctionData">Your Auctions:</h2>
+  <div class="auction-list" *ngIf="!!auctionData">
+    <div *ngFor="let auction of auctionData">
+      <button class="auction-button" [ngClass]="{'selected-auction': selectedAuction?.id === auction.id}" (click)="getDetails(auction.id)">{{ auction.name }}</button>
+    </div>
+    <div class="new-auction-form" *ngIf="showNewAuctionForm">
+      <div class="text-input">
+        <label for="name">Auction Name</label>
+        <input type="text" [(ngModel)]="newAuction.name" name="name" />
+      </div>
+      <button type="submit" (click)="submitNewAuction()">Create</button>
+    </div>
   </div>
 
-  <app-auction-details [auction]="selectedAuction"></app-auction-details>
+  <div [ngClass]="{'invisible': !selectedAuction}" class="details">
+    <app-auction-details [auction]="selectedAuction" (close)="deleteAuction(selectedAuction)"></app-auction-details>
+  </div>
 
-</div>
+  <button class="green-button" (click)="toggleNewAuctionForm()">
+    Create New Auction
+  </button>
 
-<button (click)="toggleNewAuctionForm()">Create New Auction</button>
-
-<div *ngIf="showNewAuctionForm">
-  <label for="name">Name</label>
-  <input type="text" [(ngModel)]="newAuction.name" name="name">
-  <button type="submit" (click)="submitNewAuction()">Create</button>
 </div>

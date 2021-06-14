@@ -1,3 +1,18 @@
-<div *ngFor="let bidder of bidders">
-  <button (click)="addBidder(bidder)">{{bidder.name}}</button>
+<div class="container">
+  <div class="header">
+    <h2>{{auction.name}}</h2>
+    <button class="close-button" (click)="close.emit()">X</button>
+  </div>
+  <div class="all-bidders">
+    <h3>click to add</h3>
+    <div *ngFor="let bidder of unusedBidders">
+      <button (click)="addBidder(bidder)">{{bidder.name}}</button>
+    </div>
+  </div>
+  <div class="added-Bidders">
+    <h3>already added</h3>
+    <div *ngFor="let bidder of auction.bidders">
+      <button (click)="removeBidder(bidder)">{{bidder.name}}</button>
+    </div>
+  </div>
 </div>

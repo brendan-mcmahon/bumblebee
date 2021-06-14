@@ -1,0 +1,88 @@
+@use 'sass:color';
+@import "../../colors.scss";
+
+.container {
+  height: 100%;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  grid-template-rows: 4em 1fr 4em 4em;
+  gap: 0px 0px;
+  grid-template-areas:
+    "header details"
+    "auctions details"
+    "buttons details"
+    "gutter details";
+
+  // justify-items: center;
+  align-items: center;
+  h2 {
+    grid-area: header;
+    margin: 0 16px;
+    font-size: 4rem;
+  }
+  .error {
+    grid-column: 1 / -1;
+    grid-row: 1;
+  }
+  .auction-list {
+    grid-area: auctions;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    height: 100%;
+    margin: 16px;
+    .new-auction-form {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      .text-input {
+        display: flex;
+        flex-direction: column;
+        label {
+          font-size: 2rem;
+        }
+        input {
+          font-size: 3rem;
+          background-color: transparent;
+          outline: none;
+          border: none;
+          border-bottom: solid 3px;
+          max-width: 90%;
+        }
+      }
+    }
+  }
+  .details {
+    grid-area: details;
+    height: 100%;
+    transition: width 2s;
+  }
+  button {
+    grid-area: buttons;
+    font-size: 3rem;
+    margin: 8px;
+  }
+  .selected-auction {
+    @include button-theme($vivid-sky-blue);
+  }
+  .auction-button {
+    @include button-theme($maximum-yellow-red);
+    width: 100%;
+    margin: 8px;
+    font-size: 3rem;
+  }
+  .selected-auction {
+    // @include button-theme(color.scale($maximum-yellow-red, $lightness: -10%));
+    @include button-theme($vivid-sky-blue);
+    width: 100%;
+    &:hover {
+      filter: none;
+      transform: translateY(0px);
+    }
+  }
+}
+
+.invisible {
+  position: absolute;
+  width: 0;
+}

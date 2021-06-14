@@ -22,12 +22,11 @@ export class AuctioneerComponent implements OnInit {
     this.socketService.selectedAuction$.subscribe(sa => this.selectedAuction = sa);
   }
 
-  open(auctionId: number) {
-    this.socketService.openAuction(auctionId);
-  }
-
   start(auctionId: number) {
-    this.router.navigate(['/'])
+    this.apiService.updateAuctionStatus(auctionId, 'in-progress').subscribe(a => {
+      this.socketService.selectedAuction$.next(a);
+      this.router.navigate(['/']);
+    });
   }
 
   getDetails(auctionId: number) {
@@ -40,10 +39,18 @@ export class AuctioneerComponent implements OnInit {
   }
 
   submitNewAuction() {
-    this.apiService.createNewAuction(this.newAuction).subscribe(a => {
+    this.apiService.createNewAuction(this.newAuction).subscribe((a: Auction) => {
       this.auctionData.push(a);
+      this.socketService.selectedAuction$.next(a);
       this.selectedAuction = a;
+      this.toggleNewAuctionForm();
     });
+  }
+
+  deleteAuction(auction: Auction) {
+    this.selectedAuction = null;
+    const index = this.auctionData.findIndex(a => a.id === auction.id);
+    this.auctionData.splice(index, 1);
   }
 
 }

@@ -26,8 +26,16 @@ export class ApiService {
     return this.http.post<Auction>(`${this.baseUrl}/auctions`, newAuction);
   }
 
-  addItemToAuction(itemId: number, auctionId: number): Observable<any> {
-    return this.http.post<any>(`${this.baseUrl}/auctions/item`, {itemId, auctionId});
+  updateAuctionStatus(auctionId: number, status: string): Observable<Auction> {
+    return this.http.put<Auction>(`${this.baseUrl}/auctions`, { auctionId, status });
+  }
+
+  addItemToAuction(itemId: number, auctionId: number): Observable<Item> {
+    return this.http.post<Item>(`${this.baseUrl}/auctions/item`, {itemId, auctionId});
+  }
+
+  removeItemFromAuction(auctionItemId: number): Observable<any> {
+    return this.http.delete<any>(`${this.baseUrl}/auctions/item/${auctionItemId}`);
   }
 
   getAllBidders(): Observable<Bidder[]> {
@@ -38,9 +46,16 @@ export class ApiService {
     return this.http.post<Bidder>(`${this.baseUrl}/bidders`, bidder);
   }
 
-  addBidderToAuction(bidderId: number, auctionId: number): Observable<any> {
-    console.log(`adding bidder ${bidderId} to auction ${auctionId}`);
-    return this.http.post<any>(`${this.baseUrl}/auctions/bidder`, {bidderId, auctionId});
+  addBidderToAuction(bidderId: number, auctionId: number): Observable<Bidder> {
+    return this.http.post<Bidder>(`${this.baseUrl}/auctions/bidder`, {bidderId, auctionId});
+  }
+
+  removeBidderFromAuction(auctionBidderId: number): Observable<any> {
+    return this.http.delete<any>(`${this.baseUrl}/auctions/bidder/${auctionBidderId}`);
+  }
+
+  deleteAuction(auctionId: number): Observable<any> {
+    return this.http.delete<any>(`${this.baseUrl}/auctions/${auctionId}`);
   }
 
 }

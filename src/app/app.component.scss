@@ -1,15 +1,26 @@
+@use 'sass:color';
 @import "../colors.scss";
 
-.links {
-  display: flex;
-  justify-content: flex-start;
-  background-color: $safety-yellow;
-  padding: 16px;
-  font-size: 3rem;
-  width: 100%;
-  a {
-    color: $black;
-    text-decoration: none;
-    margin-left: 32px;
+.container {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 6fr;
+  height: 100%;
+  .links {
+    display: flex;
+    justify-content: flex-start;
+    background-color: $safety-yellow;
+    padding: 16px;
+    font-size: 3rem;
+    width: 100%;
+    align-items: center;
+    a {
+      @include button-theme($maximum-yellow-red);
+      color: $black;
+      text-decoration: none;
+      margin-left: 32px;
+      padding: 8px 2rem;
+      border-radius: 3em;
+    }
   }
 }

@@ -1,21 +1,24 @@
 export class Auction {
   id: number;
   name: string;
-  open: boolean;
-  items: Item[];
-  bidders: Bidder[];
+  status: string;
+  items: Item[] = [];
+  bidders: Bidder[] = [];
 }
 
 export class Item {
-  id: number;
+  itemId: number;
+  auctionItemId: number;
   name: string;
   startingBid: number;
   currentBid: number;
-  currentBidderId: number;
+  bidder: Bidder;
+  photoUrl: string;
 }
 
 export class Bidder {
-  id: number;
+  bidderId: number;
+  auctionBidderId: number;
   name: string;
   online: boolean = false;
 }

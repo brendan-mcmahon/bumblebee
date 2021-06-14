@@ -4,9 +4,14 @@ $maximum-yellow-red: hsla(42, 82%, 55%, 1);
 $black: hsla(120, 100%, 0%, 1);
 $spanish-gray: hsla(231, 3%, 57%, 1);
 $vivid-sky-blue: hsla(192, 89%, 52%, 1);
+$malachite: hsla(132, 63%, 58%, 1);
 
-@mixin theme($theme) {
+@mixin button-theme($theme) {
   background: $theme;
-  box-shadow: 0 0 1px rgba($theme, .25);
+  filter: drop-shadow(0px 10px 10px color.scale($theme, $lightness: -70%));
   color: color.scale($theme, $lightness: -50%);
+  &:hover {
+    filter: drop-shadow(0px 15px 15px color.scale($theme, $lightness: -70%));
+    transform: translateY(-5px);
+  }
 }

@@ -1,3 +1,18 @@
-<div *ngFor="let item of items">
-  <button (click)="addItem(item)">{{item.name}}</button>
+<div class="container">
+  <div class="header">
+    <h2>{{auction.name}}</h2>
+    <button class="close-button" (click)="close.emit()">X</button>
+  </div>
+  <div class="all-items">
+    <h3>click to add</h3>
+    <div *ngFor="let item of unusedItems">
+      <button (click)="addItem(item)">{{item.name}}</button>
+    </div>
+  </div>
+  <div class="added-items">
+    <h3>already added</h3>
+    <div *ngFor="let item of auction.items">
+      <button (click)="removeItem(item)">{{item.name}}</button>
+    </div>
+  </div>
 </div>

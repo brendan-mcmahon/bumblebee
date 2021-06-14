@@ -1,22 +1,33 @@
 <div class="container" *ngIf="!!auction">
-  <h3>{{auction.name}}</h3>
-  <p>{{auction.id}}</p>
-  <h4>Items:</h4>
-  <div *ngFor="let item of auction.items">
-    {{item.name}} {{item.startingBid}}
+  <h2>{{auction.name}}</h2>
+  <button class="delete-button" (click)="deleteAuction()">Delete</button>
+    <div class="list-container items">
+      <h3>Items:</h3>
+      <div class="list">
+        <div class="list-item" *ngFor="let item of auction.items">
+          <span>{{item.name}}</span> <span>${{item.startingBid}}</span>
+        </div>
+      </div>
+      <button (click)="toggleAddItemDialog()">add item</button>
+    </div>
+    <div class="list-container bidders">
+      <h3>Bidders:</h3>
+      <div class="list">
+        <div class="list-item" *ngFor="let bidder of auction.bidders">
+          {{bidder.name}}
+        </div>
+      </div>
+      <button (click)="toggleAddBidderDialog()">add bidder</button>
+    </div>
+
+  <div *ngIf="showAddItemDialog" class="add-dialog">
+    <app-add-item-dialog [auction]="auction" (itemAdded)="itemAdded($event)" (itemRemoved)="itemRemoved($event)" (close)="toggleAddItemDialog()"></app-add-item-dialog>
   </div>
-  <button (click)="toggleAddItemDialog()">add item</button>
 
-  <h4>Bidders:</h4>
-  <div *ngFor="let bidder of auction.bidders">
-    {{bidder.name}}
+  <div *ngIf="showAddBidderDialog" class="add-dialog">
+    <app-add-bidder-dialog [auction]="auction" (bidderAdded)="bidderAdded($event)" (bidderRemoved)="bidderRemoved($event)" (close)="toggleAddBidderDialog()"></app-add-bidder-dialog>
   </div>
-  <button (click)="toggleAddBidderDialog()">add bidder</button>
-
-  <app-add-item-dialog *ngIf="showAddItemDialog" [auction]="auction" (itemAdded)="itemAdded($event)"></app-add-item-dialog>
-
-  <app-add-bidder-dialog *ngIf="showAddBidderDialog" [auction]="auction" (bidderAdded)="bidderAdded($event)"></app-add-bidder-dialog>
-
-  <button *ngIf="!auction.open" (click)="open(auction.id)">Open Auction</button>
-  <button *ngIf="auction.open" (click)="start(auction.id)">Start Auction</button>
+  <button class="green-button bottom-button" *ngIf="auction.status === 'not-started'" (click)="start(auction.id)">Start Auction</button>
+  <button class="green-button bottom-button" *ngIf="auction.status === 'in-progress'" (click)="goToAuction(auction)">Go to Auction</button>
+  <button class="green-button bottom-button" *ngIf="auction.status === 'complete'" (click)="viewEndSummary(auction)">View Summary</button>
 </div>

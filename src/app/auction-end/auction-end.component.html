@@ -1,0 +1,20 @@
+<div *ngIf="!!auction" class="container">
+  <h2>This auction has ended</h2>
+
+  <h3>Summary by Item</h3>
+  <div class="item-container">
+    <div class="list-item" *ngFor="let item of auction.items">
+      <div>{{item.name}}</div>
+      <div>${{item.currentBid}}.00</div>
+      <div>{{item.bidder.name}}</div>
+    </div>
+  </div>
+
+  <h3>Summary by Person</h3>
+  <div class="item-container">
+    <div class="list-item" *ngFor="let bidder of auction.bidders">
+      <div>{{bidder.name}}</div>
+      <div>${{getTotalForBidder(bidder)}}.00</div>
+    </div>
+  </div>
+</div>

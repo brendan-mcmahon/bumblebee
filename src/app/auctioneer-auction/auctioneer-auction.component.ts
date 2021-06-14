@@ -10,6 +10,7 @@ import { SocketService } from '../socket.service';
 })
 export class AuctioneerAuctionComponent implements OnInit {
   auction: Auction;
+  auctionFinished = false;
   currentItemIndex = 0;
   currentItem: Item;
   currentBidder: Bidder;
@@ -18,23 +19,18 @@ export class AuctioneerAuctionComponent implements OnInit {
   constructor (private socketService: SocketService, private router: Router) { }
 
   ngOnInit(): void {
-    if (!this.socketService.selectedAuction$.getValue()) {
-      this.router.navigate(['auctioneer']);
-    }
-
     this.socketService.selectedAuction$.subscribe(auction => {
+      if (!auction) this.router.navigate(['auctioneer']);
+      console.log(auction);
       this.auction = auction
       this.currentItem = auction.items[this.currentItemIndex];
       this.currentItem.currentBid = this.currentItem.startingBid;
     });
 
     this.socketService.newBid$.subscribe(b => {
-      console.log(b);
-      console.log(this.currentItem);
       if (!!b) {
         this.currentItem.currentBid = b.amount;
-        this.currentItem.currentBidderId = b.bidderId;
-        this.currentBidder = this.auction.bidders.find(b => b.id === this.currentItem.currentBidderId);
+        this.currentBidder = this.auction.bidders.find(b2 => b2.bidderId === b.bidderId);
         this.round = 1;
       }
     })
@@ -43,8 +39,21 @@ export class AuctioneerAuctionComponent implements OnInit {
   increment() {
     if (this.round < 3) this.round++;
     else {
+      this.sold();
+    }
+  }
+
+  sold() {
+    this.socketService.sold(this.currentItem.auctionItemId);
+    if (this.currentItemIndex === this.auction.items.length - 1) {
+      this.auctionFinished = true;
+      this.socketService.completeAuction(this.auction.id);
+    } else {
       this.currentItemIndex++;
       this.round = 1;
+      this.currentItem = this.auction.items[this.currentItemIndex];
+      this.currentItem.currentBid = this.currentItem.startingBid;
+      this.currentBidder = null;
     }
   }
 
@@ -58,7 +67,8 @@ export class AuctioneerAuctionComponent implements OnInit {
 
   bid(amount: number, bidderId: number) {
     //is this id the auctionitem id or the item id?
-    this.socketService.bid(this.currentItem.id, bidderId, this.currentItem.currentBid + amount);
+    console.log(this.currentItem.auctionItemId);
+    this.socketService.bid(this.currentItem.auctionItemId, bidderId, this.currentItem.currentBid + amount);
   }
 
   endAuction() { }

@@ -12,6 +12,7 @@ import { FormsModule } from '@angular/forms';
 import { AddItemDialogComponent } from './add-item-dialog/add-item-dialog.component';
 import { AddBidderDialogComponent } from './add-bidder-dialog/add-bidder-dialog.component';
 import { BidderManagementComponent } from './bidder-management/bidder-management.component';
+import { AuctionEndComponent } from './auction-end/auction-end.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { BidderManagementComponent } from './bidder-management/bidder-management
     ItemManagementComponent,
     AddItemDialogComponent,
     AddBidderDialogComponent,
-    BidderManagementComponent
+    BidderManagementComponent,
+    AuctionEndComponent
   ],
   imports: [
     BrowserModule,
