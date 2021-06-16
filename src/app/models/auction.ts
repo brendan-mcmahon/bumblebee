@@ -1,7 +1,9 @@
 export class Auction {
   id: number;
+  code: string;
   name: string;
   status: string;
+  currentAuctionItemId: number;
   items: Item[] = [];
   bidders: Bidder[] = [];
 }

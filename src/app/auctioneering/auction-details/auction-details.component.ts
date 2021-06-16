@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
-import { ApiService } from '../api.service';
-import { Auction, Bidder, Item } from '../models/auction';
-import { SocketService } from '../socket.service';
+import { ApiService } from '../../api.service';
+import { Auction, Bidder, Item } from '../../models/auction';
+import { SocketService } from '../../socket.service';
 
 @Component({
   selector: 'app-auction-details',
@@ -22,12 +22,14 @@ export class AuctionDetailsComponent implements OnInit {
   }
 
   start() {
-    this.router.navigate(['auctioneer/auction'])
+    this.socketService.selectedAuction$.next(this.auction);
+    this.router.navigate(['auctioneer/auction']);
+    this.socketService.auctionStarted(this.auction.id);
   }
 
   goToAuction(auction: Auction) {
     this.socketService.selectedAuction$.next(auction);
-    this.router.navigate(['auction']);
+    this.router.navigate(['auctioneer/auction']);
   }
 
   viewEndSummary(auction: Auction) {

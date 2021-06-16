@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Auction, Bidder } from '../models/auction';
-import { SocketService } from '../socket.service';
+import { Auction, Bidder } from '../../models/auction';
+import { SocketService } from '../../socket.service';
 
 @Component({
   selector: 'app-auction-end',

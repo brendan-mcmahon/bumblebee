@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Auction, Bidder, Item } from './models/auction';
 
@@ -10,9 +9,8 @@ import { Auction, Bidder, Item } from './models/auction';
 export class ApiService {
 
   baseUrl = 'http://localhost:5000';
-  // baseUrl = 'https://marital-bliss-api.herokuapp.com';
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient) { }
 
   getAllItems(): Observable<Item[]> {
     return this.http.get<Item[]>(`${this.baseUrl}/items`);

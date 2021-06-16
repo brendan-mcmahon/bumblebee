@@ -13,11 +13,11 @@ export class SocketService {
   private socket: any;
   message: string;
   auctionData$ = new BehaviorSubject<Auction[]>(null);
-selectedAuction$ = new BehaviorSubject<Auction>(null);
+  selectedAuction$ = new BehaviorSubject<Auction>(null);
   newBid$ = new BehaviorSubject<Bid>(null);
-  itemSold$ = new BehaviorSubject<Item>(null);
+  nextItemId$ = new BehaviorSubject<number>(null);
 
-  constructor() {
+  constructor () {
     this.socket = io(this.API_ENDPOINT);
 
     this.socket.on('auction-data', (auctionData: Auction[]) => {
@@ -25,6 +25,8 @@ selectedAuction$ = new BehaviorSubject<Auction>(null);
     });
 
     this.socket.on('auction', (auction: Auction) => {
+      console.log('got new auction info');
+      console.log(auction);
       this.selectedAuction$.next(auction);
     });
 
@@ -32,12 +34,12 @@ selectedAuction$ = new BehaviorSubject<Auction>(null);
       this.newBid$.next(auctionItem);
     });
 
-    this.socket.on('sell-complete', (auctionItem: Item) => {
-      this.itemSold$.next(auctionItem);
-    })
-   }
+    this.socket.on('next-item', (auctionItemId: number) => {
+      this.nextItemId$.next(auctionItemId);
+    });
+  }
 
-   hey() {
+  hey() {
     this.socket.emit('hey');
   }
 
@@ -45,16 +47,23 @@ selectedAuction$ = new BehaviorSubject<Auction>(null);
     this.socket.emit('auction-details', { auctionId });
   }
 
+  auctionStarted(auctionId: number) {
+    this.socket.emit('auction-started', { auctionId });
+  }
+
   bid(id: number, bidderId: number, amount: number) {
     this.socket.emit('bid', { auctionItemId: id, bidderId, amount });
   }
 
-  sold(auctionItemId: any) {
-    this.socket.emit('sold', { auctionItemId });
+  sold(auctionItemId: any, nextAuctionItemId = null) {
+    this.socket.emit('sold', { auctionId: this.selectedAuction$.getValue().id, auctionItemId, nextAuctionItemId });
   }
 
   completeAuction(auctionId: number) {
     this.socket.emit('complete-auction', { auctionId });
   }
 
+  joinRoom(auctionCode: string, name: string) {
+    this.socket.emit('join', { code: auctionCode, name });
+  }
 }

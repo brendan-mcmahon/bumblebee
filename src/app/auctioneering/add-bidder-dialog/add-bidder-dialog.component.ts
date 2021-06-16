@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
-import { ApiService } from '../api.service';
-import { Auction, Bidder } from '../models/auction';
+import { ApiService } from '../../api.service';
+import { Auction, Bidder } from '../../models/auction';
 
 @Component({
   selector: 'app-add-bidder-dialog',

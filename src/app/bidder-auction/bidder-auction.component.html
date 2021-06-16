@@ -1,0 +1,12 @@
+<div *ngIf="!!auction" class="container">
+
+  <div *ngIf="auction.status === 'not-started'">
+    This auction hasn't started yet. Sit tight!
+  </div>
+
+  <div *ngIf="!!currentItem">
+    {{currentItem.name}}
+  </div>
+
+  <pre>{{auction | json}}</pre>
+</div>

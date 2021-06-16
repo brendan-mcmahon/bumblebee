@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ApiService } from '../api.service';
-import { Item } from '../models/auction';
+import { ApiService } from '../../api.service';
+import { Item } from '../../models/auction';
 
 @Component({
   selector: 'app-item-management',

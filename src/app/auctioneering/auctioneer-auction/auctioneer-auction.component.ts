@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Auction, Bidder, Item } from '../models/auction';
-import { SocketService } from '../socket.service';
+import { Auction, Bidder, Item } from '../../models/auction';
+import { SocketService } from '../../socket.service';
 
 @Component({
   selector: 'app-auctioneer-auction',
@@ -44,17 +44,20 @@ export class AuctioneerAuctionComponent implements OnInit {
   }
 
   sold() {
-    this.socketService.sold(this.currentItem.auctionItemId);
+    this.socketService.sold(this.currentItem.auctionItemId );
     if (this.currentItemIndex === this.auction.items.length - 1) {
       this.auctionFinished = true;
       this.socketService.completeAuction(this.auction.id);
     } else {
+      this.socketService.sold(this.currentItem.auctionItemId, this.auction.items[this.currentItemIndex + 1].auctionItemId );
       this.currentItemIndex++;
       this.round = 1;
       this.currentItem = this.auction.items[this.currentItemIndex];
       this.currentItem.currentBid = this.currentItem.startingBid;
       this.currentBidder = null;
     }
+
+    this.socketService.sold(this.currentItem.auctionItemId);
   }
 
   nextItem() {

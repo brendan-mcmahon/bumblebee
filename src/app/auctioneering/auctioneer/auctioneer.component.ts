@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ApiService } from '../api.service';
-import { SocketService } from '../socket.service';
-import { Auction } from '../models/auction';
+import { ApiService } from '../../api.service';
+import { SocketService } from '../../socket.service';
+import { Auction } from '../../models/auction';
 
 @Component({
   selector: 'app-auctioneer',
@@ -26,6 +26,7 @@ export class AuctioneerComponent implements OnInit {
     this.apiService.updateAuctionStatus(auctionId, 'in-progress').subscribe(a => {
       this.socketService.selectedAuction$.next(a);
       this.router.navigate(['/']);
+      this.socketService.auctionStarted(auctionId);
     });
   }
 
@@ -39,6 +40,7 @@ export class AuctioneerComponent implements OnInit {
   }
 
   submitNewAuction() {
+    this.newAuction.code = this.createCode();
     this.apiService.createNewAuction(this.newAuction).subscribe((a: Auction) => {
       this.auctionData.push(a);
       this.socketService.selectedAuction$.next(a);
@@ -51,6 +53,15 @@ export class AuctioneerComponent implements OnInit {
     this.selectedAuction = null;
     const index = this.auctionData.findIndex(a => a.id === auction.id);
     this.auctionData.splice(index, 1);
+  }
+
+  private createCode(): string {
+    // const alphabet = [..."ABCDEFGHIJKLMNOPQRSTUVWXYZ"];
+    const alphabet = [...'ASDFQWERZXVC'];
+
+    return [...Array(4)]
+    .map(i => alphabet[Math.random()*12|0]) //TODO: Make this 26 again
+    .join('');
   }
 
 }
