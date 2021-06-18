@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { io } from 'socket.io-client';
 import { environment } from 'src/environments/environment';
-import { Auction, Bid, Bidder, Item } from './models/auction';
+import { Auction, Bid } from './models/auction';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +16,7 @@ export class SocketService {
   selectedAuction$ = new BehaviorSubject<Auction>(null);
   newBid$ = new BehaviorSubject<Bid>(null);
   nextItemId$ = new BehaviorSubject<number>(null);
+  bidderId$ = new BehaviorSubject<number>(null);
 
   constructor () {
     this.socket = io(this.API_ENDPOINT);
@@ -37,33 +38,45 @@ export class SocketService {
     this.socket.on('next-item', (auctionItemId: number) => {
       this.nextItemId$.next(auctionItemId);
     });
+
+    this.socket.on('bidder-id', (id: number) => {
+      this.bidderId$.next(id);
+    })
   }
 
-  hey() {
-    this.socket.emit('hey');
+  auctioneer() {
+    this.socket.emit('auctioneer');
+  }
+
+  auctioneerJoin() {
+    this.socket.emit('auctioneer-join', { code: this.selectedAuction$.getValue().code });
   }
 
   getAuctionDetails(auctionId: number) {
     this.socket.emit('auction-details', { auctionId });
   }
 
-  auctionStarted(auctionId: number) {
-    this.socket.emit('auction-started', { auctionId });
+  auctionStarted() {
+    this.socket.emit('auction-started', { code: this.selectedAuction$.getValue().code });
   }
 
-  bid(id: number, bidderId: number, amount: number) {
-    this.socket.emit('bid', { auctionItemId: id, bidderId, amount });
+  bid(id: number, amount: number, bidderId: number = null) {
+    this.socket.emit('bid', {
+      code: this.selectedAuction$.getValue().code,
+      auctionItemId: id,
+      bidderId: bidderId || this.bidderId$.getValue(),
+      amount });
   }
 
   sold(auctionItemId: any, nextAuctionItemId = null) {
-    this.socket.emit('sold', { auctionId: this.selectedAuction$.getValue().id, auctionItemId, nextAuctionItemId });
+    this.socket.emit('sold', { code: this.selectedAuction$.getValue().code, auctionId: this.selectedAuction$.getValue().id, auctionItemId, nextAuctionItemId });
   }
 
   completeAuction(auctionId: number) {
-    this.socket.emit('complete-auction', { auctionId });
+    this.socket.emit('complete-auction', { code: this.selectedAuction$.getValue().code, auctionId });
   }
 
-  joinRoom(auctionCode: string, name: string) {
-    this.socket.emit('join', { code: auctionCode, name });
+  joinRoom(code: string, name: string) {
+    this.socket.emit('join', { code, name });
   }
 }

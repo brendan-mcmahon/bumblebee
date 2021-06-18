@@ -8,6 +8,7 @@ import { Auction, Bidder, Item } from './models/auction';
 })
 export class ApiService {
 
+
   baseUrl = 'http://localhost:5000';
 
   constructor(private http: HttpClient) { }
@@ -22,6 +23,10 @@ export class ApiService {
 
   createNewAuction(newAuction: Auction): Observable<Auction> {
     return this.http.post<Auction>(`${this.baseUrl}/auctions`, newAuction);
+  }
+
+  startAuction(auctionId: number): Observable<Auction> {
+    return this.http.put<Auction>(`${this.baseUrl}/auctions/start`, { auctionId });
   }
 
   updateAuctionStatus(auctionId: number, status: string): Observable<Auction> {
@@ -54,6 +59,10 @@ export class ApiService {
 
   deleteAuction(auctionId: number): Observable<any> {
     return this.http.delete<any>(`${this.baseUrl}/auctions/${auctionId}`);
+  }
+
+  getAuctionByCode(auctionCode: string): Observable<Auction> {
+    return this.http.get<Auction>(`${this.baseUrl}/auctions/${auctionCode}`);
   }
 
 }

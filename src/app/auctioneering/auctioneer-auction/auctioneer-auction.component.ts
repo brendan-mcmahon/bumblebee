@@ -21,10 +21,13 @@ export class AuctioneerAuctionComponent implements OnInit {
   ngOnInit(): void {
     this.socketService.selectedAuction$.subscribe(auction => {
       if (!auction) this.router.navigate(['auctioneer']);
+
+      // Probably shouldn't do this every time
+      this.socketService.auctioneerJoin();
       console.log(auction);
       this.auction = auction
-      this.currentItem = auction.items[this.currentItemIndex];
-      this.currentItem.currentBid = this.currentItem.startingBid;
+      this.setCurrentItem();
+      this.currentItem.currentBid = this.currentItem.currentBid || this.currentItem.startingBid;
     });
 
     this.socketService.newBid$.subscribe(b => {
@@ -44,20 +47,25 @@ export class AuctioneerAuctionComponent implements OnInit {
   }
 
   sold() {
-    this.socketService.sold(this.currentItem.auctionItemId );
     if (this.currentItemIndex === this.auction.items.length - 1) {
       this.auctionFinished = true;
+      this.socketService.sold(this.currentItem.auctionItemId);
       this.socketService.completeAuction(this.auction.id);
+      this.router.navigate(['auction/end'])
     } else {
-      this.socketService.sold(this.currentItem.auctionItemId, this.auction.items[this.currentItemIndex + 1].auctionItemId );
+      this.socketService.sold(this.currentItem.auctionItemId, this.auction.items[this.currentItemIndex + 1].auctionItemId);
       this.currentItemIndex++;
       this.round = 1;
-      this.currentItem = this.auction.items[this.currentItemIndex];
+      this.setCurrentItem();
       this.currentItem.currentBid = this.currentItem.startingBid;
       this.currentBidder = null;
     }
 
-    this.socketService.sold(this.currentItem.auctionItemId);
+  }
+
+  private setCurrentItem() {
+    this.currentItem = this.auction.items.find(i => i.auctionItemId === this.auction.currentAuctionItemId);
+    console.log(this.currentItem);
   }
 
   nextItem() {
@@ -69,9 +77,7 @@ export class AuctioneerAuctionComponent implements OnInit {
   }
 
   bid(amount: number, bidderId: number) {
-    //is this id the auctionitem id or the item id?
-    console.log(this.currentItem.auctionItemId);
-    this.socketService.bid(this.currentItem.auctionItemId, bidderId, this.currentItem.currentBid + amount);
+    this.socketService.bid(this.currentItem.auctionItemId, this.currentItem.currentBid + amount, bidderId);
   }
 
   endAuction() { }

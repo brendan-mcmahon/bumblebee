@@ -14,15 +14,24 @@ export class BidderAuctionComponent implements OnInit {
   constructor (private socketService: SocketService) { }
 
   ngOnInit(): void {
-    this.socketService.selectedAuction$.subscribe(auction => this.auction = auction);
-    this.socketService.nextItemId$.subscribe(id => {
-      if (id) {
-        this.auction.currentAuctionItemId = id;
-        this.setCurrentItem();
-      }
+    this.socketService.selectedAuction$.subscribe(auction => {
+      console.log('auction updated');
+      console.log(auction.status);
+      this.auction = auction;
+      this.setCurrentItem();
     });
+    // this.socketService.nextItemId$.subscribe(id => {
+    //   console.log(`new item id up ${id}`);
+    //   if (id) {
+    //     this.auction.currentAuctionItemId = id;
+    //     this.setCurrentItem();
+    //   }
+    // });
 
-    this.setCurrentItem();
+  }
+
+  bid(amount: number) {
+    this.socketService.bid(this.currentItem.auctionItemId, this.currentItem.currentBid + amount);
   }
 
   private setCurrentItem() {

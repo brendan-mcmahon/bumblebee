@@ -1,6 +1,8 @@
 <p>{{auction.code}}</p>
 <div class="container" *ngIf="!!currentItem">
   <div class="current-item">
+    {{currentItemIndex}}
+    {{auction.items.length}}
     <!-- <img src="../../assets/images/no-image.jpg" /> -->
     <h2>{{currentItem.name}} <span class="amount">${{currentItem.currentBid || currentItem.startingBid}}.00</span></h2>
     <div class="details">

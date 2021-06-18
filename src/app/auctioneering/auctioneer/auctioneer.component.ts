@@ -18,16 +18,9 @@ export class AuctioneerComponent implements OnInit {
   constructor (private socketService: SocketService, private apiService: ApiService, private router: Router) { }
 
   ngOnInit(): void {
+    this.socketService.auctioneer();
     this.socketService.auctionData$.subscribe(ad => this.auctionData = ad);
     this.socketService.selectedAuction$.subscribe(sa => this.selectedAuction = sa);
-  }
-
-  start(auctionId: number) {
-    this.apiService.updateAuctionStatus(auctionId, 'in-progress').subscribe(a => {
-      this.socketService.selectedAuction$.next(a);
-      this.router.navigate(['/']);
-      this.socketService.auctionStarted(auctionId);
-    });
   }
 
   getDetails(auctionId: number) {

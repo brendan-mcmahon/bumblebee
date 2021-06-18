@@ -22,9 +22,11 @@ export class AuctionDetailsComponent implements OnInit {
   }
 
   start() {
-    this.socketService.selectedAuction$.next(this.auction);
-    this.router.navigate(['auctioneer/auction']);
-    this.socketService.auctionStarted(this.auction.id);
+    this.apiService.startAuction(this.auction.id).subscribe(auction => {
+      this.socketService.selectedAuction$.next(auction);
+      this.socketService.auctionStarted();
+      this.router.navigate(['auctioneer/auction']);
+    });
   }
 
   goToAuction(auction: Auction) {
@@ -47,8 +49,10 @@ export class AuctionDetailsComponent implements OnInit {
   }
 
   itemAdded(newItem: Item) {
+    console.log(newItem);
     if (!this.auction.items) this.auction.items = [];
     this.auction.items.push(newItem);
+    console.log(this.auction.items);
   }
 
   itemRemoved(removedItem: Item) {

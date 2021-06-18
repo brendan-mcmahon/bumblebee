@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { SocketService } from './socket.service';
 
 @Component({
   selector: 'app-root',
@@ -11,11 +10,10 @@ export class AppComponent implements OnInit {
 
   userType: string;
 
-  constructor(private socketService: SocketService, private router: Router){}
+  constructor(private router: Router){}
 
   ngOnInit(): void {
     if (!this.userType) this.router.navigate(['']);
-    this.socketService.hey();
   }
 
   navigate(userType: string) {

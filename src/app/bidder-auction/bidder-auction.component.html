@@ -6,7 +6,13 @@
 
   <div *ngIf="!!currentItem">
     {{currentItem.name}}
+    {{currentItem.currentBid}}
+    <button (click)="bid(1)">${{currentItem.currentBid + 1}}</button>
+    <button (click)="bid(5)">${{currentItem.currentBid + 5}}</button>
+    <button (click)="bid(10)">${{currentItem.currentBid + 10}}</button>
+
   </div>
+
 
   <pre>{{auction | json}}</pre>
 </div>
