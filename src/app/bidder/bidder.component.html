@@ -1,12 +1,12 @@
 <div class="container">
-  <div *ngIf="!auctionCode">
+  <div class="form" *ngIf="!auctionCode">
     <label>Enter game code:</label>
-    <input [(ngModel)]="codeInput" name="codeInput" type="text" />
+    <input [(ngModel)]="codeInput" name="codeInput" type="text" oninput="this.value = this.value.toUpperCase()" />
 
     <button type="submit" (click)="reroute()">Go!</button>
   </div>
 
-  <div *ngIf="auctionCode">
+  <div class="form" *ngIf="auctionCode">
     <label>Enter your name:</label>
     <input [(ngModel)]="name" name="name" type="text" />
     <button type="submit" (click)="goToGame()">Go!</button>

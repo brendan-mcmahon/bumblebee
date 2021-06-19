@@ -1,8 +1,11 @@
-<div class="container">
+<div class="container" [ngClass]="{'container-no-header': userType !== 'auctioneer'}">
   <div *ngIf="userType === 'auctioneer'" class="links">
-    <a href="/auctioneer">Home</a>
-    <a href="/inventory">Item Inventory</a>
-    <a href="/bidders">Bidders</a>
+    <a class="link-button" href="/auctioneer">Home</a>
+    <a class="link-button" href="/inventory">Item Inventory</a>
+    <a class="link-button" href="/bidders">Bidders</a>
+  </div>
+
+  <div *ngIf="userType !== 'auctioneer'" class="empty">
   </div>
 
   <div *ngIf="!userType" class="home">
@@ -10,9 +13,7 @@
     <button (click)="navigate('auctioneer')">I am running an auction</button>
   </div>
 
-
   <div class="content">
     <router-outlet></router-outlet>
   </div>
 </div>
-

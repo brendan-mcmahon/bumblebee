@@ -4,15 +4,18 @@
     This auction hasn't started yet. Sit tight!
   </div>
 
-  <div *ngIf="!!currentItem">
-    {{currentItem.name}}
-    {{currentItem.currentBid}}
-    <button (click)="bid(1)">${{currentItem.currentBid + 1}}</button>
-    <button (click)="bid(5)">${{currentItem.currentBid + 5}}</button>
-    <button (click)="bid(10)">${{currentItem.currentBid + 10}}</button>
-
+  <div class="current-item" *ngIf="!!currentItem">
+    <img src="../../assets/images/no-image.jpg" />
+    <h3>{{currentItem.name}}</h3>
+    <h4 class="current-bid" *ngIf="!currentItem.currentBid">Starting Bid: ${{currentItem.startingBid}}</h4>
+    <h4 class="current-bid" *ngIf="currentItem.currentBid">Current Bid: ${{currentItem.currentBid}}</h4>
+    <h4 class="current-bidder" *ngIf="currentItem.currentBid">Current Winner: {{currentItem.bidder.name}}</h4>
+    <div class="bid-buttons">
+      <button (click)="bid(1)">${{currentItem.currentBid + 1}}</button>
+      <button (click)="bid(5)">${{currentItem.currentBid + 5}}</button>
+      <button (click)="bid(10)">${{currentItem.currentBid + 10}}</button>
+    </div>
   </div>
-
 
   <pre>{{auction | json}}</pre>
 </div>

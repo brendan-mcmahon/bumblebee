@@ -1,7 +1,8 @@
 <div class="container" *ngIf="!!auction">
-  <h2>{{auction.name}}: {{auction.code}}</h2>
-  <button class="delete-button" (click)="deleteAuction()">Delete</button>
-    <div class="list-container items">
+  <div class="header">
+    <h3>{{auction.name}}: {{auction.code}}</h3>
+    <button class="delete-button" (click)="deleteAuction()"><fa-icon [icon]="faTrash"></fa-icon></button>
+  </div>    <div class="list-container items">
       <h3>Items:</h3>
       <div class="list">
         <div class="list-item" *ngFor="let item of auction.items">

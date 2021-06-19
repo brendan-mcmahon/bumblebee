@@ -3,7 +3,10 @@
 
 .container {
   height: 100%;
+  display: grid;
+  grid-template-rows: 7rem auto;
   .home {
+    grid-row: 2;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
@@ -25,5 +28,15 @@
       padding: 8px 2rem;
       border-radius: 3em;
     }
+  }
+}
+
+.container-no-header {
+  grid-template-rows: 0 auto;
+}
+
+@media only screen and (max-width: 700px) {
+  .container {
+      margin: 32px;
   }
 }

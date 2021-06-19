@@ -1,15 +1,15 @@
 <div class="container">
   <div class="header">
-    <h2>{{auction.name}}</h2>
-    <button class="close-button" (click)="close.emit()">X</button>
+    <h3>{{auction.name}}</h3>
+    <button class="close-button" (click)="close.emit()"><fa-icon [icon]="faTimes"></fa-icon></button>
   </div>
-  <div class="all-bidders">
+  <div class="all-bidders list">
     <h3>click to add</h3>
     <div *ngFor="let bidder of unusedBidders">
       <button (click)="addBidder(bidder)">{{bidder.name}}</button>
     </div>
   </div>
-  <div class="added-Bidders">
+  <div class="added-bidders list">
     <h3>already added</h3>
     <div *ngFor="let bidder of auction.bidders">
       <button (click)="removeBidder(bidder)">{{bidder.name}}</button>

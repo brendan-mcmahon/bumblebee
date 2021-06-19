@@ -8,7 +8,6 @@ import { Auction, Bid } from './models/auction';
   providedIn: 'root'
 })
 export class SocketService {
-
   API_ENDPOINT = environment.API_ENDPOINT;
   private socket: any;
   message: string;
@@ -40,6 +39,7 @@ export class SocketService {
     });
 
     this.socket.on('bidder-id', (id: number) => {
+      console.log(`new bidder id: ${id}`);
       this.bidderId$.next(id);
     })
   }
@@ -79,4 +79,9 @@ export class SocketService {
   joinRoom(code: string, name: string) {
     this.socket.emit('join', { code, name });
   }
+
+  rejoin(code: string, bidderId: number) {
+    this.socket.emit('rejoin', { code, bidderId } )
+  }
+
 }

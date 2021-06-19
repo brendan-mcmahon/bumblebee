@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { ApiService } from '../../api.service';
 import { Auction, Bidder } from '../../models/auction';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-add-bidder-dialog',
@@ -14,6 +15,7 @@ export class AddBidderDialogComponent implements OnInit, OnChanges {
   @Output() close = new EventEmitter<any>();
   allBidders: Bidder[];
   unusedBidders: Bidder[];
+  faTimes = faTimes;
 
   constructor (private apiService: ApiService) { }
 

@@ -15,10 +15,9 @@
 
   // justify-items: center;
   align-items: center;
-  h2 {
+  h3 {
     grid-area: header;
     margin: 0 16px;
-    font-size: 4rem;
   }
   .error {
     grid-column: 1 / -1;
@@ -28,13 +27,17 @@
     grid-area: auctions;
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: flex-start;
     height: 100%;
     margin: 16px;
+    .auction {
+      margin-top: 24px;
+    }
     .new-auction-form {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      flex-direction: column;
       .text-input {
         display: flex;
         flex-direction: column;
@@ -59,7 +62,6 @@
   }
   button {
     grid-area: buttons;
-    font-size: 3rem;
     margin: 8px;
   }
   .selected-auction {
@@ -69,7 +71,7 @@
     @include button-theme($maximum-yellow-red);
     width: 100%;
     margin: 8px;
-    font-size: 3rem;
+    font-size: 2rem;
   }
   .selected-auction {
     // @include button-theme(color.scale($maximum-yellow-red, $lightness: -10%));

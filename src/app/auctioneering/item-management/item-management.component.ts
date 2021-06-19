@@ -15,6 +15,7 @@ export class ItemManagementComponent implements OnInit {
   constructor(private apiService: ApiService) { }
 
   ngOnInit(): void {
+    console.log('managing items');
     this.apiService.getAllItems().subscribe(i => this.items = i);
   }
 

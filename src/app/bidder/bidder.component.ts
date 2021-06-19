@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from '../api.service';
 import { SocketService } from '../socket.service';
+import { StorageService } from '../storage.service';
 
 @Component({
   selector: 'app-bidder',
@@ -18,10 +19,20 @@ export class BidderComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private socketService: SocketService,
+    private storageService: StorageService,
     private apiService: ApiService) { }
 
   ngOnInit(): void {
     this.auctionCode = this.route.snapshot.paramMap.get('auctionCode');
+
+    const config = this.storageService.getConfig();
+    if (!!this.auctionCode && !!config) {
+      if (config.auctionCode === this.auctionCode){
+        this.socketService.rejoin(config.auctionCode, config.userId);
+        this.socketService.bidderId$.next(config.userId);
+        this.router.navigate([`bidder/auction`]);
+      }
+    }
   }
 
   reroute() {
@@ -32,9 +43,13 @@ export class BidderComponent implements OnInit {
     this.apiService.getAuctionByCode(this.auctionCode).subscribe(auction => {
       this.socketService.selectedAuction$.next(auction);
       this.socketService.joinRoom(this.auctionCode, this.name);
-      this.socketService.bidderId$.subscribe(id =>
-        this.router.navigate([`bidder/auction`])
-      )
+      this.socketService.bidderId$.subscribe(id => {
+        if (!!id){
+        console.log(id);
+        this.router.navigate([`bidder/auction`]);
+        }
+      }
+      );
     });
   }
 }

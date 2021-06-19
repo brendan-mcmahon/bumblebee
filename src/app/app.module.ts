@@ -15,6 +15,7 @@ import { BidderManagementComponent } from './auctioneering/bidder-management/bid
 import { AuctionEndComponent } from './auctioneering/auction-end/auction-end.component';
 import { BidderComponent } from './bidder/bidder.component';
 import { BidderAuctionComponent } from './bidder-auction/bidder-auction.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { BidderAuctionComponent } from './bidder-auction/bidder-auction.componen
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    FontAwesomeModule
   ],
   providers: [],
   bootstrap: [AppComponent]

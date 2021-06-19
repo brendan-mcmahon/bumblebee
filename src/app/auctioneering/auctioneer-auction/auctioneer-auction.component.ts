@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Auction, Bidder, Item } from '../../models/auction';
 import { SocketService } from '../../socket.service';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-auctioneer-auction',
@@ -15,6 +16,8 @@ export class AuctioneerAuctionComponent implements OnInit {
   currentItem: Item;
   currentBidder: Bidder;
   round = 1;
+
+  faTimes = faTimes;
 
   constructor (private socketService: SocketService, private router: Router) { }
 

@@ -1,7 +1,7 @@
 <div class="container">
-  <h2 *ngIf="!!auctionData">Your Auctions:</h2>
+  <h3>Auctions:</h3>
   <div class="auction-list" *ngIf="!!auctionData">
-    <div *ngFor="let auction of auctionData">
+    <div class="auction" *ngFor="let auction of auctionData">
       <button class="auction-button" [ngClass]="{'selected-auction': selectedAuction?.id === auction.id}" (click)="getDetails(auction.id)">{{ auction.name }}</button>
     </div>
     <div class="new-auction-form" *ngIf="showNewAuctionForm">
@@ -9,7 +9,10 @@
         <label for="name">Auction Name</label>
         <input type="text" [(ngModel)]="newAuction.name" name="name" />
       </div>
-      <button type="submit" (click)="submitNewAuction()">Create</button>
+      <div>
+        <button type="submit" (click)="submitNewAuction()">Create</button>
+        <button (click)="toggleNewAuctionForm()"><fa-icon [icon]="faTimes"></fa-icon></button>
+      </div>
     </div>
   </div>
 
@@ -17,7 +20,7 @@
     <app-auction-details [auction]="selectedAuction" (close)="deleteAuction(selectedAuction)"></app-auction-details>
   </div>
 
-  <button class="green-button" (click)="toggleNewAuctionForm()">
+  <button *ngIf="!showNewAuctionForm" class="green-button" (click)="toggleNewAuctionForm()">
     Create New Auction
   </button>
 

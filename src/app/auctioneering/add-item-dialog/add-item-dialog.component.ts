@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { ApiService } from 'src/app/api.service';
 import { Auction, Item } from '../../models/auction';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-add-item-dialog',
@@ -14,6 +15,7 @@ export class AddItemDialogComponent implements OnInit, OnChanges {
   @Output() close = new EventEmitter<any>();
   allItems: Item[];
   unusedItems: Item[] = [];
+  faTimes = faTimes;
 
   constructor (private apiService: ApiService) { }
 

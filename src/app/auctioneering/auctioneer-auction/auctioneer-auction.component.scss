@@ -16,7 +16,11 @@
     margin: 16px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
+    align-items: center;
+    h3 {
+      font-size: 5rem;
+    }
     h2 {
       display: flex;
       justify-content: space-between;
@@ -48,14 +52,17 @@
     grid-area: bidders;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: flex-start;
     margin: 24px 8px;
     border-left: solid 3px;
     .bidder {
       display: flex;
       justify-content: space-between;
-      margin: 16px;
       align-items: center;
+      margin: 24px 16px;
+      h3 {
+        min-width: 5em;
+      }
       button {
         min-width: 6rem;
       }

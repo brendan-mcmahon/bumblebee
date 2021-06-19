@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { ApiService } from '../../api.service';
 import { Auction, Bidder, Item } from '../../models/auction';
 import { SocketService } from '../../socket.service';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-auction-details',
@@ -15,6 +16,7 @@ export class AuctionDetailsComponent implements OnInit {
   @Output() close = new EventEmitter<any>();
   showAddItemDialog = false;
   showAddBidderDialog = false;
+  faTrash = faTrash;
 
   constructor(private socketService: SocketService, private apiService: ApiService, private router: Router) { }
 

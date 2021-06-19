@@ -14,16 +14,19 @@
     "gutter gutter";
   background-color: $vivid-sky-blue;
   background-color: color.scale($maximum-yellow-red, $lightness: -10%);
-  padding: 0px 16px;
-  .delete-button {
-    @include button-theme(red);
-    grid-row: 1;
-    grid-column: 2;
-  }
-  h2 {
+  .header {
     grid-area: header;
-    margin: 0;
-    font-size: 4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin: 16px;
+    .delete-button {
+      @include button-theme(red);
+      grid-row: 1;
+      grid-column: 2;
+      min-width: 5rem;
+      text-align: center;
+    }
   }
   .items {
     grid-area: items;
@@ -33,6 +36,7 @@
   }
   .bottom-button {
     grid-area: buttons;
+    margin: 0px 16px;
   }
   .details {
     display: flex;
