@@ -4,6 +4,7 @@ import { ApiService } from '../../api.service';
 import { Auction, Bidder, Item } from '../../models/auction';
 import { SocketService } from '../../socket.service';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-auction-details',
@@ -17,11 +18,11 @@ export class AuctionDetailsComponent implements OnInit {
   showAddItemDialog = false;
   showAddBidderDialog = false;
   faTrash = faTrash;
+  inviteLink = environment.UI_URL;
 
   constructor(private socketService: SocketService, private apiService: ApiService, private router: Router) { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void { }
 
   start() {
     this.apiService.startAuction(this.auction.id).subscribe(auction => {

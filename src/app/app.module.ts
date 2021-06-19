@@ -16,6 +16,7 @@ import { AuctionEndComponent } from './auctioneering/auction-end/auction-end.com
 import { BidderComponent } from './bidder/bidder.component';
 import { BidderAuctionComponent } from './bidder-auction/bidder-auction.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { ClipboardModule } from 'ngx-clipboard';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    ClipboardModule
   ],
   providers: [],
   bootstrap: [AppComponent]
