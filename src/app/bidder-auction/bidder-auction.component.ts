@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Auction, Item } from '../models/auction';
 import { SocketService } from '../socket.service';
 import { StorageService } from '../storage.service';
@@ -12,11 +13,14 @@ export class BidderAuctionComponent implements OnInit {
   auction: Auction;
   currentItem: Item;
 
-  constructor (private socketService: SocketService, private storageService: StorageService) { }
+  constructor (private socketService: SocketService, private storageService: StorageService, private router: Router) { }
 
   ngOnInit(): void {
     this.socketService.selectedAuction$.subscribe(auction => {
       if (!!auction) {
+        if (auction.status === 'complete') {
+          this.router.navigate(['auction/end']);
+        }
         this.auction = auction;
         this.setCurrentItem();
         this.socketService.bidderId$.subscribe(id => {

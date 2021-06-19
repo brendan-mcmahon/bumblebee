@@ -1,4 +1,4 @@
-<div *ngIf="!!auction" class="container">
+<div *ngIf="!!auction && dataService.userType === 'auctioneer'" class="container">
   <h2>This auction has ended</h2>
 
   <h3>Summary by Item</h3>
@@ -14,7 +14,20 @@
   <div class="item-container">
     <div class="list-item" *ngFor="let bidder of auction.bidders">
       <div>{{bidder.name}}</div>
-      <div>${{getTotalForBidder(bidder)}}.00</div>
+      <div>${{getTotalForBidder(bidder.bidderId)}}.00</div>
     </div>
+  </div>
+</div>
+
+<div *ngIf="!!auction && dataService.userType === 'bidder'" class="container">
+  <h2>This auction has ended</h2>
+
+  <h3>Your winnings!</h3>
+  <div class="item-container">
+    <div class="list-item" *ngFor="let item of getItemsForBidder()">
+      <div>{{item.name}}</div>
+      <div>${{item.currentBid}}.00</div>
+    </div>
+    <div class="total"><span>Total:</span> ${{bidderTotal}}.00</div>
   </div>
 </div>
