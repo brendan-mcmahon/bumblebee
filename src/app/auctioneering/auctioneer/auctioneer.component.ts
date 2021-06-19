@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { ApiService } from '../../api.service';
 import { SocketService } from '../../socket.service';
 import { Auction } from '../../models/auction';
+import { DataService } from 'src/app/data.service';
 
 @Component({
   selector: 'app-auctioneer',
@@ -15,9 +16,10 @@ export class AuctioneerComponent implements OnInit {
   showNewAuctionForm = false;
   newAuction: Auction;
 
-  constructor (private socketService: SocketService, private apiService: ApiService, private router: Router) { }
+  constructor (private socketService: SocketService, private apiService: ApiService, private router: Router, private dataService: DataService) { }
 
   ngOnInit(): void {
+    this.dataService.userType = 'auctioneer';
     this.socketService.auctioneer();
     this.socketService.auctionData$.subscribe(ad => this.auctionData = ad);
     this.socketService.selectedAuction$.subscribe(sa => this.selectedAuction = sa);

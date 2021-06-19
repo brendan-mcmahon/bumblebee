@@ -1,6 +1,6 @@
 <div class="container" *ngIf="!!auction">
   <div class="header">
-    <h3>{{auction.name}} <button class="blue-button" ngxClipboard [cbContent]="inviteLink + auction.code">Copy Invite Link</button></h3>
+    <h3>{{auction.name}} <button class="blue-button" ngxClipboard [cbContent]="inviteLink +'bidder/' + auction.code">Copy Invite Link</button></h3>
 
 
     <button class="delete-button" (click)="deleteAuction()"><fa-icon [icon]="faTrash"></fa-icon></button>

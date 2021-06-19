@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { DataService } from './data.service';
 
 @Component({
   selector: 'app-root',
@@ -8,16 +9,14 @@ import { Router } from '@angular/router';
 })
 export class AppComponent implements OnInit {
 
-  userType: string;
-
-  constructor(private router: Router){}
+  constructor(private router: Router, public dataService: DataService){}
 
   ngOnInit(): void {
-    if (!this.userType) this.router.navigate(['']);
+    // if (!this.userType) this.router.navigate(['']);
   }
 
   navigate(userType: string) {
-    this.userType = userType;
+    this.dataService.userType = userType;
     this.router.navigate([userType])
   }
 }

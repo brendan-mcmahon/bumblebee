@@ -1,14 +1,14 @@
-<div class="container" [ngClass]="{'container-no-header': userType !== 'auctioneer'}">
-  <div *ngIf="userType === 'auctioneer'" class="links">
+<div class="container" [ngClass]="{'container-no-header': dataService.userType !== 'auctioneer'}">
+  <div *ngIf="dataService.userType === 'auctioneer'" class="links">
     <a class="link-button" href="/auctioneer">Home</a>
     <a class="link-button" href="/inventory">Item Inventory</a>
     <a class="link-button" href="/bidders">Bidders</a>
   </div>
 
-  <div *ngIf="userType !== 'auctioneer'" class="empty">
+  <div *ngIf="dataService.userType !== 'auctioneer'" class="empty">
   </div>
 
-  <div *ngIf="!userType" class="home">
+  <div *ngIf="!dataService.userType" class="home">
     <button (click)="navigate('bidder')">I am participating in an auction</button>
     <button (click)="navigate('auctioneer')">I am running an auction</button>
   </div>
