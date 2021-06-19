@@ -8,6 +8,7 @@ import { Auction, Bid } from './models/auction';
   providedIn: 'root'
 })
 export class SocketService {
+
   API_ENDPOINT = environment.API_ENDPOINT;
   private socket: any;
   message: string;
@@ -78,7 +79,10 @@ export class SocketService {
   }
 
   rejoin(code: string, bidderId: number) {
-    this.socket.emit('rejoin', { code, bidderId } )
+    this.socket.emit('rejoin', { code, bidderId } );
   }
 
+  next() {
+    this.socket.emit('next', { code: this.selectedAuction$.getValue().code } );
+  }
 }

@@ -65,4 +65,7 @@ export class ApiService {
     return this.http.get<Auction>(`${this.baseUrl}auctions/${auctionCode}`);
   }
 
+  sell(auctionItemId: number): Observable<number> {
+    return this.http.post<number>(`${this.baseUrl}auctions/sell`, { auctionItemId });
+  }
 }

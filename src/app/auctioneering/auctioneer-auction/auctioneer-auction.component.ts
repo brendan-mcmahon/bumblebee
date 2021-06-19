@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Auction, Bidder, Item } from '../../models/auction';
 import { SocketService } from '../../socket.service';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
+import { ApiService } from 'src/app/api.service';
 
 @Component({
   selector: 'app-auctioneer-auction',
@@ -19,7 +20,7 @@ export class AuctioneerAuctionComponent implements OnInit {
 
   faTimes = faTimes;
 
-  constructor (private socketService: SocketService, private router: Router) { }
+  constructor (private socketService: SocketService, private router: Router, private apiService: ApiService) { }
 
   ngOnInit(): void {
     this.socketService.selectedAuction$.subscribe(auction => {
@@ -49,21 +50,18 @@ export class AuctioneerAuctionComponent implements OnInit {
   }
 
   sold() {
-    if (this.currentItemIndex === this.auction.items.length - 1) {
-      this.auctionFinished = true;
-      this.socketService.sold(this.currentItem.auctionItemId);
-      this.socketService.completeAuction(this.auction.id);
-      this.router.navigate(['auction/end'])
-    } else {
-      this.socketService.sold(this.currentItem.auctionItemId, this.auction.items[this.currentItemIndex + 1].auctionItemId);
-      this.currentItemIndex++;
-      this.auction.currentAuctionItemId = this.auction.items[this.currentItemIndex].auctionItemId;
-      this.round = 1;
-      this.setCurrentItem();
-      this.currentItem.currentBid = this.currentItem.startingBid;
-      this.currentBidder = null;
-    }
+    this.apiService.sell(this.currentItem.auctionItemId).subscribe(auctionItemId => {
+      console.log(auctionItemId);
+      if (!!auctionItemId) this.socketService.next();
+      else {
+        this.auctionFinished = true;
+        this.socketService.completeAuction(this.auction.id);
+        this.router.navigate(['auction/end'])
 
+      }
+    });
+    this.round = 1;
+    this.currentBidder = null;
   }
 
   private setCurrentItem() {
