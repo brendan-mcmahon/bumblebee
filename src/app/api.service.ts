@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { Auction, Bidder, Item } from './models/auction';
 
 @Injectable({
@@ -8,8 +9,7 @@ import { Auction, Bidder, Item } from './models/auction';
 })
 export class ApiService {
 
-
-  baseUrl = 'http://localhost:5000';
+  baseUrl = environment.API_ENDPOINT;;
 
   constructor(private http: HttpClient) { }
 
