@@ -5,11 +5,12 @@
   </div>
 
   <div class="current-item" *ngIf="!!currentItem">
-    <img src="../../assets/images/no-image.jpg" />
+    <img [src]="'../../assets/images/' + currentItem.photoUrl" />
     <h3>{{currentItem.name}}</h3>
     <h4 class="current-bid" *ngIf="!currentItem.currentBid">Starting Bid: ${{currentItem.startingBid}}</h4>
     <h4 class="current-bid" *ngIf="currentItem.currentBid">Current Bid: ${{currentItem.currentBid}}</h4>
     <h4 class="current-bidder" *ngIf="currentItem.currentBid">Current Winner: {{currentItem.bidder.name}}</h4>
+    <h3>Place your bid!</h3>
     <div class="bid-buttons">
       <button (click)="bid(1)">${{currentItem.currentBid + 1}}</button>
       <button (click)="bid(5)">${{currentItem.currentBid + 5}}</button>
@@ -17,5 +18,5 @@
     </div>
   </div>
 
-  <pre>{{auction | json}}</pre>
+  <!-- <pre>{{auction | json}}</pre> -->
 </div>

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Auction, Bidder, Item } from '../models/auction';
+import { Auction, Item } from '../models/auction';
 import { SocketService } from '../socket.service';
 import { StorageService } from '../storage.service';
 
@@ -40,5 +40,6 @@ export class BidderAuctionComponent implements OnInit {
 
   private setCurrentItem() {
     this.currentItem = this.auction.items.find(i => i.auctionItemId === this.auction.currentAuctionItemId);
+    console.log(this.currentItem);
   }
 }
