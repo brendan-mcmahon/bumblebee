@@ -26,14 +26,11 @@ export class BidderComponent implements OnInit {
 
   ngOnInit(): void {
     this.dataService.userType = 'bidder';
-    console.log('well you landed on the bidder page...');
     this.auctionCode = this.route.snapshot.paramMap.get('auctionCode');
 
     const config = this.storageService.getConfig();
     if (!!this.auctionCode && !!config) {
-      console.log('has an auction and a config');
       if (config.auctionCode === this.auctionCode){
-        console.log('config has an existing auction code');
         this.socketService.rejoin(config.auctionCode, config.userId);
         this.socketService.bidderId$.next(config.userId);
         this.router.navigate([`bidder/auction`]);
@@ -51,7 +48,6 @@ export class BidderComponent implements OnInit {
       this.socketService.joinRoom(this.auctionCode, this.name);
       this.socketService.bidderId$.subscribe(id => {
         if (!!id){
-        console.log(id);
         this.router.navigate([`bidder/auction`]);
         }
       }

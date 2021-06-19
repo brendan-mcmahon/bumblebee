@@ -52,10 +52,8 @@ export class AuctionDetailsComponent implements OnInit {
   }
 
   itemAdded(newItem: Item) {
-    console.log(newItem);
     if (!this.auction.items) this.auction.items = [];
     this.auction.items.push(newItem);
-    console.log(this.auction.items);
   }
 
   itemRemoved(removedItem: Item) {

@@ -25,8 +25,6 @@ export class SocketService {
     });
 
     this.socket.on('auction', (auction: Auction) => {
-      console.log('got new auction info');
-      console.log(auction);
       this.selectedAuction$.next(auction);
     });
 
@@ -39,7 +37,6 @@ export class SocketService {
     });
 
     this.socket.on('bidder-id', (id: number) => {
-      console.log(`new bidder id: ${id}`);
       this.bidderId$.next(id);
     })
   }

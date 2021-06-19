@@ -22,7 +22,6 @@ export class BidderAuctionComponent implements OnInit {
         this.socketService.bidderId$.subscribe(id => {
           if (!!id) {
             const bidder = this.auction.bidders.find(b => b.bidderId === id);
-            console.log('saving config');
             this.storageService.setConfig({
               userId: id,
               userName: bidder.name,
@@ -40,6 +39,5 @@ export class BidderAuctionComponent implements OnInit {
 
   private setCurrentItem() {
     this.currentItem = this.auction.items.find(i => i.auctionItemId === this.auction.currentAuctionItemId);
-    console.log(this.currentItem);
   }
 }

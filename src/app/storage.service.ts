@@ -26,7 +26,6 @@ export class StorageService {
   }
 
   setConfig(config: BumbleBeeConfig): void {
-    console.log(config);
     this.localStorage.setItem(this.configKey, JSON.stringify(config));
   }
 

@@ -27,7 +27,6 @@ export class AuctioneerAuctionComponent implements OnInit {
 
       // Probably shouldn't do this every time
       this.socketService.auctioneerJoin();
-      console.log(auction);
       this.auction = auction
       this.setCurrentItem();
       this.currentItem.currentBid = this.currentItem.currentBid || this.currentItem.startingBid;
@@ -58,6 +57,7 @@ export class AuctioneerAuctionComponent implements OnInit {
     } else {
       this.socketService.sold(this.currentItem.auctionItemId, this.auction.items[this.currentItemIndex + 1].auctionItemId);
       this.currentItemIndex++;
+      this.auction.currentAuctionItemId = this.auction.items[this.currentItemIndex].auctionItemId;
       this.round = 1;
       this.setCurrentItem();
       this.currentItem.currentBid = this.currentItem.startingBid;
@@ -68,7 +68,6 @@ export class AuctioneerAuctionComponent implements OnInit {
 
   private setCurrentItem() {
     this.currentItem = this.auction.items.find(i => i.auctionItemId === this.auction.currentAuctionItemId);
-    console.log(this.currentItem);
   }
 
   nextItem() {
