@@ -50,6 +50,10 @@ export class SocketService {
     this.socket.emit('auctioneer-join', { code: this.selectedAuction$.getValue().code });
   }
 
+  spectatorJoin(code: string) {
+    this.socket.emit('spectator-join', { code });
+  }
+
   getAuctionDetails(auctionId: number) {
     this.socket.emit('auction-details', { auctionId });
   }

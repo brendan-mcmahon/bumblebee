@@ -7,6 +7,7 @@ import { BidderManagementComponent } from './auctioneering/bidder-management/bid
 import { BidderComponent } from './bidder/bidder.component';
 import { ItemManagementComponent } from './auctioneering/item-management/item-management.component';
 import { BidderAuctionComponent } from './bidder-auction/bidder-auction.component';
+import { SpectatorComponent } from './spectator/spectator.component';
 
 const routes: Routes = [
   { path: 'bidder', component: BidderComponent },
@@ -17,6 +18,7 @@ const routes: Routes = [
   { path: 'auction/end', component: AuctionEndComponent },
   { path: 'inventory', component: ItemManagementComponent },
   { path: 'bidders', component: BidderManagementComponent },
+  { path: 'spectator/:auctionCode', component: SpectatorComponent },
 ];
 
 @NgModule({

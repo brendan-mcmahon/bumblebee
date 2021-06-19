@@ -1,0 +1,46 @@
+@import '../../colors.scss';
+
+.container {
+  .current-item {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    align-items: center;
+    height: 100vh;
+    .description {
+      display:flex;
+      width: 100%;
+      flex-direction: column;
+      align-items: center;
+    font-size: 2rem;
+    img {
+      max-width: 75vw;
+    }
+  }
+  .current-bid {
+    display:flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    font-size: 2rem;
+    .amount {
+      background-color: $malachite;
+
+      color: white;
+      padding: 16px;
+      border-radius: 5em;
+      min-width: 8rem;
+      text-align: center;
+      font-size: 3rem;
+    }
+    .winner {
+      background-color: $malachite;
+      color: white;
+      padding: 16px;
+      border-radius: 5em;
+      min-width: 8rem;
+      text-align: center;
+      font-size: 3rem;
+    }
+  }
+  }
+}

@@ -1,0 +1,25 @@
+<div *ngIf="!!auction" class="container">
+  <div *ngIf="auction.status === 'not-started'">
+    This auction hasn't started yet. Sit tight!
+  </div>
+
+  <div
+    *ngIf="!!currentItem && auction.status === 'in-progress'"
+    class="current-item"
+  >
+    <div class="description">
+      <img [src]="'../../assets/images/' + currentItem.photoUrl" />
+      <h3>{{ currentItem.name }}</h3>
+    </div>
+    <div class="current-bid">
+      <h4 class="current-bid" *ngIf="!currentItem.currentBid">Starting Bid:</h4>
+      <div class="amount" *ngIf="!currentItem.currentBid">${{ currentItem.startingBid }}</div>
+      <h4 class="current-bid" *ngIf="currentItem.currentBid">Current Bid:</h4>
+      <div class="amount" *ngIf="currentItem.currentBid">${{ currentItem.currentBid }}</div>
+      <h4 class="current-bidder" *ngIf="currentItem.currentBid">
+        Current Winner:
+      </h4>
+      <div class="winner" *ngIf="currentItem.currentBid">{{ currentItem.bidder.name }}</div>
+    </div>
+  </div>
+</div>

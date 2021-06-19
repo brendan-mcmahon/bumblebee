@@ -17,6 +17,7 @@ import { BidderComponent } from './bidder/bidder.component';
 import { BidderAuctionComponent } from './bidder-auction/bidder-auction.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ClipboardModule } from 'ngx-clipboard';
+import { SpectatorComponent } from './spectator/spectator.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { ClipboardModule } from 'ngx-clipboard';
     AuctionEndComponent,
     BidderComponent,
     BidderAuctionComponent,
+    SpectatorComponent,
   ],
   imports: [
     BrowserModule,
